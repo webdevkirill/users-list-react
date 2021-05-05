@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import './App.css';
-import UsersList from './components/UsersList';
+import UsersList from './components/UsersList/UsersList';
 import { initialState, reducer, ContextApp } from './context/reducer';
 
 function App() {
