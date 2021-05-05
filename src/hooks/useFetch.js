@@ -1,6 +1,6 @@
 import { useContext, useState, useCallback, useEffect } from 'react';
 import { ContextApp } from '../context/reducer';
-import { loadData } from '../context/actions';
+import { loadData, loadError } from '../context/actions';
 
 const transformUsersToGroups = (users) =>
 	users.reduce((acc, user) => {
@@ -26,8 +26,12 @@ export const useFetch = (url) => {
 			.then((response) => response.json())
 			.then((data) => {
 				const users = transformUsersToGroups(data.results);
-				console.log(users);
 				dispatch(loadData(users));
+				setIsLoading(false);
+			})
+			.catch((e) => {
+				console.error(e);
+				dispatch(loadError(e));
 				setIsLoading(false);
 			});
 	}, [url, dispatch]);
