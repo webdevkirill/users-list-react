@@ -1,12 +1,13 @@
 import React, { useReducer } from 'react';
 import './App.css';
-import { initialState, reducer, ContextApp } from './reducer';
+import UsersList from './components/UsersList';
+import { initialState, reducer, ContextApp } from './context/reducer';
 
 function App() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	return (
 		<ContextApp.Provider value={{ dispatch, state }}>
-			Hi
+			<UsersList />
 		</ContextApp.Provider>
 	);
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { LOAD_DATA } from './types';
 export const ContextApp = React.createContext();
 
 export const initialState = {
@@ -6,6 +7,7 @@ export const initialState = {
 };
 
 const handlers = {
+	[LOAD_DATA]: (state, { payload }) => ({ ...state, data: payload }),
 	default: (state) => state,
 };
 
