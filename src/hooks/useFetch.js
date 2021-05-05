@@ -6,13 +6,14 @@ const transformUsersToGroups = (users) =>
 	users.reduce((acc, user) => {
 		const key = Math.trunc((user.registered.age - 1) / 10);
 		if (!acc[key]) {
-			acc[key] = [];
+			acc[key] = { users: [], isOpen: false };
 		}
-		acc[key].push({
-			id: user.id.value,
-			name: `${user.name.first} ${user.id.last}`,
+		acc[key].users.push({
+			id: `${user.name.first}-${user.name.last}-${user.email}-${user.id.value}`,
+			name: `${user.name.first} ${user.name.last}`,
 			email: user.email,
 			registered: user.registered,
+			img: user.picture.thumbnail,
 		});
 		return acc;
 	}, {});

@@ -1,5 +1,5 @@
 import React from 'react';
-import { LOAD_DATA, LOAD_ERROR } from './types';
+import { LOAD_DATA, LOAD_ERROR, CHANGE_USERS_DROPDOWN } from './types';
 export const ContextApp = React.createContext();
 
 export const initialState = {
@@ -16,6 +16,16 @@ const handlers = {
 	[LOAD_ERROR]: (state, { payload }) => ({
 		...state,
 		loadError: payload,
+	}),
+	[CHANGE_USERS_DROPDOWN]: (state, { payload }) => ({
+		...state,
+		data: {
+			...state.data,
+			[payload]: {
+				...state.data[payload],
+				isOpen: !state.data[payload].isOpen,
+			},
+		},
 	}),
 	default: (state) => state,
 };

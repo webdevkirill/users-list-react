@@ -1,2 +1,4 @@
 export const LOAD_DATA = 'LOAD_DATA';
 export const LOAD_ERROR = 'LOAD_ERROR';
+
+export const CHANGE_USERS_DROPDOWN = 'CHANGE_USERS_DROPDOWN';
