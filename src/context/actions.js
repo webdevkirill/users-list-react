@@ -2,8 +2,8 @@ import {
 	LOAD_DATA,
 	LOAD_ERROR,
 	CHANGE_USERS_DROPDOWN,
-	SET_DRAGGABLE_ITEM,
 	APPEND_DRAGGABLE_ITEM,
+	DELETE_FAVORITE_USER,
 } from './types';
 
 export const loadData = (data) => ({
@@ -21,8 +21,8 @@ export const changeUsersDropdown = (id) => ({
 	payload: id,
 });
 
-export const setDraggableItem = (key, idx) => ({
-	type: SET_DRAGGABLE_ITEM,
+export const deleteFavoriteUser = (key, idx) => ({
+	type: DELETE_FAVORITE_USER,
 	payload: {
 		key,
 		idx,

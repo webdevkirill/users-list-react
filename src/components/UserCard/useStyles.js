@@ -8,6 +8,7 @@ export const useStyles = makeStyles((theme) => ({
 		fontSize: 14,
 		display: 'flex',
 		alignItems: 'center',
+		justifyContent: 'space-between',
 	},
 	drag: {
 		cursor: 'grab',
@@ -22,5 +23,9 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	userEmail: {
 		marginTop: 4,
+	},
+	userInfo: {
+		display: 'flex',
+		alignItems: 'center',
 	},
 }));
