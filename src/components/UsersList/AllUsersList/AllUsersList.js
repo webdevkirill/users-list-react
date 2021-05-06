@@ -15,16 +15,25 @@ export default function AllUsersList() {
 	const classes = useStyles();
 
 	useEffect(() => {
+		const regExp = new RegExp(`${inputValue}`, 'gi');
 		setFilteredData(
 			Object.keys(data).reduce((acc, key) => {
 				if (inputValue.trim()) {
 					acc[key] = { isOpen: data[key].isOpen };
-					acc[key].users = data[key].users.filter(
-						(user) =>
-							user.name
-								.toLowerCase()
-								.indexOf(inputValue.toLowerCase()) !== -1
-					);
+					acc[key].users = data[key].users
+						.filter(
+							(user) =>
+								user.name
+									.toLowerCase()
+									.indexOf(inputValue.toLowerCase()) !== -1
+						)
+						.map((user) => ({
+							...user,
+							name: user.name.replace(
+								regExp,
+								(match) => `<b>${match}</b>`
+							),
+						}));
 				} else {
 					acc[key] = data[key];
 				}
@@ -71,7 +80,12 @@ export default function AllUsersList() {
 								/>
 								<div className={classes.userText}>
 									<p>
-										{user.name}, дата регистрации:{' '}
+										<span
+											dangerouslySetInnerHTML={{
+												__html: user.name,
+											}}
+										/>
+										, дата регистрации:{' '}
 										{localDateFromRegisterDate(
 											user.registered.date
 										)}
