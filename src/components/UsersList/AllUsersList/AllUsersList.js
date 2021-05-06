@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { ContextApp } from '../../../context/reducer';
 import TextField from '@material-ui/core/TextField';
@@ -6,10 +6,38 @@ import { useStyles } from './useStyles';
 import { changeUsersDropdown } from '../../../context/actions';
 
 export default function AllUsersList() {
-	const { state, dispatch } = useContext(ContextApp);
-	const { data } = state;
+	const {
+		state: { data },
+		dispatch,
+	} = useContext(ContextApp);
 	const [inputValue, setInputValue] = useState('');
+	const [filteredData, setFilteredData] = useState({ ...data });
 	const classes = useStyles();
+
+	useEffect(() => {
+		setFilteredData(
+			Object.keys(data).reduce((acc, key) => {
+				if (inputValue.trim()) {
+					acc[key] = { isOpen: data[key].isOpen };
+					acc[key].users = data[key].users.filter(
+						(user) =>
+							user.name
+								.toLowerCase()
+								.indexOf(inputValue.toLowerCase()) !== -1
+					);
+				} else {
+					acc[key] = data[key];
+				}
+
+				if (acc[key].users.length > 0) {
+					acc[key].isDisabled = false;
+				} else {
+					acc[key].isDisabled = true;
+				}
+				return acc;
+			}, {})
+		);
+	}, [data, inputValue]);
 
 	return (
 		<Grid container direction='column' className={classes.root}>
@@ -21,16 +49,21 @@ export default function AllUsersList() {
 				onChange={(e) => setInputValue(e.target.value)}
 				className={classes.input}
 			/>
-			{Object.keys(data).map((key) => (
-				<div className={classes.dropdown} key={key}>
+			{Object.keys(filteredData).map((key) => (
+				<div
+					className={`${classes.dropdown} ${
+						filteredData[key].isDisabled ? classes.disabled : ''
+					}`}
+					key={key}
+				>
 					<p
 						className={classes.dropdownButton}
 						onClick={() => dispatch(changeUsersDropdown(key))}
 					>
 						{`${key * 10 + 1}-${key * 10 + 10}`}
 					</p>
-					{data[key].isOpen &&
-						data[key].users.map((user) => (
+					{filteredData[key].isOpen &&
+						filteredData[key].users.map((user) => (
 							<div className={classes.card} key={user.id}>
 								<img
 									src={user.img}

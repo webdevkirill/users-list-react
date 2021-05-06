@@ -41,4 +41,8 @@ export const useStyles = makeStyles((theme) => ({
 	userEmail: {
 		marginTop: 4,
 	},
+	disabled: {
+		color: '#AAA',
+		opacity: 0.3,
+	},
 }));
