@@ -4,6 +4,7 @@ import { ContextApp } from '../../../context/reducer';
 import TextField from '@material-ui/core/TextField';
 import { useStyles } from './useStyles';
 import { changeUsersDropdown } from '../../../context/actions';
+import UserCard from '../../UserCard/UserCard';
 
 export default function AllUsersList() {
 	const {
@@ -38,11 +39,6 @@ export default function AllUsersList() {
 					acc[key] = data[key];
 				}
 
-				if (acc[key].users.length > 0) {
-					acc[key].isDisabled = false;
-				} else {
-					acc[key].isDisabled = true;
-				}
 				return acc;
 			}, {})
 		);
@@ -61,7 +57,9 @@ export default function AllUsersList() {
 			{Object.keys(filteredData).map((key) => (
 				<div
 					className={`${classes.dropdown} ${
-						filteredData[key].isDisabled ? classes.disabled : ''
+						filteredData[key].users.length > 0
+							? ''
+							: classes.disabled
 					}`}
 					key={key}
 				>
@@ -73,39 +71,10 @@ export default function AllUsersList() {
 					</p>
 					{filteredData[key].isOpen &&
 						filteredData[key].users.map((user) => (
-							<div className={classes.card} key={user.id}>
-								<img
-									src={user.img}
-									alt={`Изображение профиля ${user.name}`}
-								/>
-								<div className={classes.userText}>
-									<p>
-										<span
-											dangerouslySetInnerHTML={{
-												__html: user.name,
-											}}
-										/>
-										, дата регистрации:{' '}
-										{localDateFromRegisterDate(
-											user.registered.date
-										)}
-									</p>
-									<p className={classes.userEmail}>
-										{user.email}
-									</p>
-								</div>
-							</div>
+							<UserCard key={user.id} user={user} />
 						))}
 				</div>
 			))}
 		</Grid>
 	);
 }
-
-const localDateFromRegisterDate = (registerDate) => {
-	const date = new Date(registerDate);
-	const day = ('0' + date.getDate()).slice(-2);
-	const month = ('0' + (date.getMonth() + 1)).slice(-2);
-	const year = date.getFullYear();
-	return `${day}-${month}-${year}`;
-};

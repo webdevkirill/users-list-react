@@ -25,22 +25,6 @@ export const useStyles = makeStyles((theme) => ({
 		marginBottom: 8,
 		padding: '4px 0',
 	},
-	card: {
-		border: '1px solid #3f51b5',
-		borderRadius: 4,
-		marginBottom: 8,
-		fontSize: 14,
-		display: 'flex',
-		alignItems: 'center',
-	},
-	userText: {
-		display: 'flex',
-		flexDirection: 'column',
-		padding: 4,
-	},
-	userEmail: {
-		marginTop: 4,
-	},
 	disabled: {
 		color: '#AAA',
 		opacity: 0.3,
