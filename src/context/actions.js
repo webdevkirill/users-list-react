@@ -4,6 +4,7 @@ import {
 	CHANGE_USERS_DROPDOWN,
 	APPEND_DRAGGABLE_ITEM,
 	DELETE_FAVORITE_USER,
+	SET_DRAGGABLE_ITEM,
 } from './types';
 
 export const loadData = (data) => ({
@@ -27,6 +28,11 @@ export const deleteFavoriteUser = (key, idx) => ({
 		key,
 		idx,
 	},
+});
+
+export const setDraggableItem = (user) => ({
+	type: SET_DRAGGABLE_ITEM,
+	payload: user,
 });
 
 export const appendDraggableItem = (key, idx) => ({

@@ -5,6 +5,7 @@ import {
 	CHANGE_USERS_DROPDOWN,
 	DELETE_FAVORITE_USER,
 	APPEND_DRAGGABLE_ITEM,
+	SET_DRAGGABLE_ITEM,
 } from './types';
 export const ContextApp = React.createContext();
 
@@ -13,6 +14,7 @@ export const initialState = {
 	loadError: null,
 	favoriteList: [],
 	changasFlag: false,
+	draggableUser: null,
 };
 
 const handlers = {
@@ -39,6 +41,10 @@ const handlers = {
 		appendDraggableItemHandler({ ...state }, payload),
 	[DELETE_FAVORITE_USER]: (state, { payload }) =>
 		deleteFavoriteUserHandler({ ...state }, payload),
+	[SET_DRAGGABLE_ITEM]: (state, { payload }) => ({
+		...state,
+		draggableUser: payload,
+	}),
 	default: (state) => state,
 };
 
@@ -51,6 +57,7 @@ const appendDraggableItemHandler = (state, { key, idx }) => {
 	state.data[key].users[idx].isFavorite = true;
 	state.favoriteList = [...state.favoriteList, state.data[key].users[idx]];
 	state.changesFlag = !state.changesFlag;
+	state.draggableUser = null;
 	return state;
 };
 

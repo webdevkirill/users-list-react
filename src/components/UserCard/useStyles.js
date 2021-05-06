@@ -28,4 +28,7 @@ export const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		alignItems: 'center',
 	},
+	preview: {
+		opacity: 0.5,
+	},
 }));

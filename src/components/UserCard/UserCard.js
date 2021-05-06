@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { useStyles } from './useStyles';
 import TrashIcon from './TrashIcon';
 import { ContextApp } from '../../context/reducer';
-import { deleteFavoriteUser } from '../../context/actions';
+import { deleteFavoriteUser, setDraggableItem } from '../../context/actions';
 
-export default function UserCard({ user }) {
+export default function UserCard({ user, preview }) {
 	const classes = useStyles();
 	const { dispatch } = useContext(ContextApp);
 
@@ -13,16 +13,18 @@ export default function UserCard({ user }) {
 			'text/plain',
 			`${user.keyInData}-${user.idx}`
 		);
+		dispatch(setDraggableItem(user));
 	};
 
 	const deleteFavoriteUserHandler = () => {
-		console.log(user.keyInData, user.idx);
 		dispatch(deleteFavoriteUser(user.keyInData, user.idx));
 	};
 
 	return (
 		<div
-			className={`${classes.card} ${!user.isFavorite && classes.drag}`}
+			className={`${classes.card} ${!user.isFavorite && classes.drag} ${
+				preview && classes.preview
+			}`}
 			draggable={!user.isFavorite}
 			onDragStart={(e) => dragStartHandler(e)}
 		>
