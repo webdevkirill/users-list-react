@@ -5,14 +5,15 @@ export const useStyles = makeStyles((theme) => ({
 		width: 400,
 		marginRight: 16,
 		border: '1px solid #3f51b5',
-		padding: 8,
+		paddingTop: 8,
 	},
 	title: {
 		textAlign: 'center',
-		marginBottom: 45,
+		marginBottom: 37,
 	},
 	dropzone: {
 		width: '100%',
 		height: 'calc(100% - 64px)',
+		padding: 8,
 	},
 }));

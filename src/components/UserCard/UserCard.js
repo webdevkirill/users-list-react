@@ -16,17 +16,22 @@ export default function UserCard({ user, preview }) {
 		dispatch(setDraggableItem(user));
 	};
 
+	const dragEndHandler = (e) => {
+		dispatch(setDraggableItem(null));
+	};
+
 	const deleteFavoriteUserHandler = () => {
 		dispatch(deleteFavoriteUser(user.keyInData, user.idx));
 	};
 
 	return (
 		<div
-			className={`${classes.card} ${!user.isFavorite && classes.drag} ${
-				preview && classes.preview
-			}`}
+			className={`user-card ${classes.card} ${
+				!user.isFavorite && classes.drag
+			} ${preview && classes.preview}`}
 			draggable={!user.isFavorite}
-			onDragStart={(e) => dragStartHandler(e)}
+			onDragStart={dragStartHandler}
+			onDragEnd={dragEndHandler}
 		>
 			<div className={classes.userInfo}>
 				<img src={user.img} alt={`Изображение профиля ${user.name}`} />
