@@ -5,6 +5,7 @@ import Loader from '../Loader/Loader';
 import { ContextApp } from '../../context/reducer';
 import AllUsersList from './AllUsersList/AllUsersList';
 import { makeStyles } from '@material-ui/core/styles';
+import FavoriteUsersList from './FavoriteUsersList/FavoriteUsersList';
 
 export default function UsersList() {
 	const { isLoading } = useFetch('https://randomuser.me/api/?results=10');
@@ -24,10 +25,11 @@ export default function UsersList() {
 			container
 			direction='row'
 			justify='center'
-			alignItems='flex-start'
+			alignItems='stretch'
 			className={classes.root}
 		>
 			<AllUsersList />
+			<FavoriteUsersList />
 		</Grid>
 	);
 }

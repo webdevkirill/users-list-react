@@ -4,8 +4,19 @@ import { useStyles } from './useStyles';
 export default function UserCard({ user }) {
 	const classes = useStyles();
 
+	const dragStartHandler = (event) => {
+		event.dataTransfer.setData(
+			'text/plain',
+			`${user.keyInData}-${user.idx}`
+		);
+	};
+
 	return (
-		<div className={classes.card} key={user.id}>
+		<div
+			className={`${classes.card} ${!user.isFavorite && classes.drag}`}
+			draggable={!user.isFavorite}
+			onDragStart={(e) => dragStartHandler(e)}
+		>
 			<img src={user.img} alt={`Изображение профиля ${user.name}`} />
 			<div className={classes.userText}>
 				<p>

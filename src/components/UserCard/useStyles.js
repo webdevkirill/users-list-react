@@ -9,6 +9,12 @@ export const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		alignItems: 'center',
 	},
+	drag: {
+		cursor: 'grab',
+		'&:active': {
+			cursor: 'grabbing',
+		},
+	},
 	userText: {
 		display: 'flex',
 		flexDirection: 'column',

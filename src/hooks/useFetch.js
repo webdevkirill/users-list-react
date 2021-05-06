@@ -8,12 +8,15 @@ const transformUsersToGroups = (users) =>
 		if (!acc[key]) {
 			acc[key] = { users: [], isOpen: false };
 		}
+		const idx = acc[key].users.length;
 		acc[key].users.push({
 			id: `${user.name.first}-${user.name.last}-${user.email}-${user.id.value}`,
 			name: `${user.name.first} ${user.name.last}`,
 			email: user.email,
 			registered: user.registered,
 			img: user.picture.thumbnail,
+			keyInData: key,
+			idx,
 		});
 		return acc;
 	}, {});

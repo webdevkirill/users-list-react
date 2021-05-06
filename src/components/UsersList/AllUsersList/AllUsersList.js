@@ -70,9 +70,12 @@ export default function AllUsersList() {
 						{`${key * 10 + 1}-${key * 10 + 10}`}
 					</p>
 					{filteredData[key].isOpen &&
-						filteredData[key].users.map((user) => (
-							<UserCard key={user.id} user={user} />
-						))}
+						filteredData[key].users.map((user) => {
+							if (user.isFavorite) {
+								return null;
+							}
+							return <UserCard key={user.id} user={user} />;
+						})}
 				</div>
 			))}
 		</Grid>

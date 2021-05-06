@@ -1,10 +1,17 @@
 import React from 'react';
-import { LOAD_DATA, LOAD_ERROR, CHANGE_USERS_DROPDOWN } from './types';
+import {
+	LOAD_DATA,
+	LOAD_ERROR,
+	CHANGE_USERS_DROPDOWN,
+	SET_DRAGGABLE_ITEM,
+	APPEND_DRAGGABLE_ITEM,
+} from './types';
 export const ContextApp = React.createContext();
 
 export const initialState = {
 	data: null,
 	loadError: null,
+	favoriteList: [],
 };
 
 const handlers = {
@@ -27,10 +34,22 @@ const handlers = {
 			},
 		},
 	}),
+	[SET_DRAGGABLE_ITEM]: (state, { payload }) => ({
+		...state,
+		draggableItem: payload,
+	}),
+	[APPEND_DRAGGABLE_ITEM]: (state, { payload }) =>
+		appendDraggableItemHandler({ ...state }, payload),
 	default: (state) => state,
 };
 
 export const reducer = (state, action) => {
 	const handler = handlers[action.type] || handlers.default;
 	return handler(state, action);
+};
+
+const appendDraggableItemHandler = (state, { key, idx }) => {
+	state.data[key].users[idx].isFavorite = true;
+	state.favoriteList = [...state.favoriteList, state.data[key].users[idx]];
+	return state;
 };
