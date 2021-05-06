@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import FavoriteUsersList from './FavoriteUsersList/FavoriteUsersList';
 
 export default function UsersList() {
-	const { isLoading } = useFetch('https://randomuser.me/api/?results=10');
+	const { isLoading } = useFetch('https://randomuser.me/api/?results=5000');
 	const { state } = useContext(ContextApp);
 	const classes = useStyles();
 
