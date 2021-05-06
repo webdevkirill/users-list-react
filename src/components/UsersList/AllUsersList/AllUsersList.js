@@ -8,7 +8,7 @@ import UserCard from '../../UserCard/UserCard';
 
 export default function AllUsersList() {
 	const {
-		state: { data },
+		state: { data, changesFlag },
 		dispatch,
 	} = useContext(ContextApp);
 	const [inputValue, setInputValue] = useState('');
@@ -42,7 +42,7 @@ export default function AllUsersList() {
 				return acc;
 			}, {})
 		);
-	}, [data, inputValue]);
+	}, [data, inputValue, changesFlag]);
 
 	return (
 		<Grid container direction='column' className={classes.root}>

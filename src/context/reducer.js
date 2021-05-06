@@ -12,6 +12,7 @@ export const initialState = {
 	data: null,
 	loadError: null,
 	favoriteList: [],
+	changasFlag: false,
 };
 
 const handlers = {
@@ -49,6 +50,7 @@ export const reducer = (state, action) => {
 const appendDraggableItemHandler = (state, { key, idx }) => {
 	state.data[key].users[idx].isFavorite = true;
 	state.favoriteList = [...state.favoriteList, state.data[key].users[idx]];
+	state.changesFlag = !state.changesFlag;
 	return state;
 };
 
@@ -57,5 +59,6 @@ const deleteFavoriteUserHandler = (state, { key, idx }) => {
 	state.favoriteList = state.favoriteList.filter(
 		(user) => !(user.keyInData === key && user.idx === idx)
 	);
+	state.changesFlag = !state.changesFlag;
 	return state;
 };
